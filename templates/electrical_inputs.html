@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c2c2c;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            animation: fadeInBody 0.5s ease-in-out;
+        }
+
+        @keyframes fadeInBody {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #228B22;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            animation: zoomIn 1s ease-out;
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        form {
+            background-color: #3a3a3a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeInForm 1.2s ease-in forwards;
+        }
+
+        @keyframes fadeInForm {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #555;
+            color: #fff;
+        }
+
+        .error-message {
+            color: #ff4c4c;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none; /* Hidden initially */
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #228B22;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0000FF;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 20px;
+            color: #ccc;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
+
+            75% {
+                transform: translateX(-5px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>GPA Calculator</h1>
+
+        <form id="year" action="{% url 'elec_sem' %}" method="POST">
+            {% csrf_token %}
+            
+            {% for coz in coase %}
+            <label for="course{{ forloop.counter }}">
+                {{ coz }}
+            </label>
+            <input type="text" id="course{{ forloop.counter }}" name="course{{ forloop.counter }}" required>
+            <div class="error-message" id="error-course{{ forloop.counter }}">Please use (A, B+, B, C, D, E).</div>
+            {% endfor %}
+            
+            <input type="hidden" id="selected-degree" name="selected_degree" value="{{ selected_degree }}">
+            <input type="hidden" id="course-count" name="course_count" value="{{ coase|length }}">
+            <br>
+        
+            <input type="submit" value="Calculate GPA">
+            <div class="footer">
+                Iman's system &copy; 2024 <a href="{% url 'electrical' %}">Back</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('year').addEventListener('submit', function(event) {
+            // Define the allowed grades
+            const allowedGrades = ['A', 'B+', 'B', 'C', 'D', 'E'];
+            let isValid = true;
+
+            // Iterate through each input field
+            const courseCount = {{ coase|length }};
+            for (let i = 1; i <= courseCount; i++) {
+                const inputField = document.getElementById('course' + i);
+                const errorMessage = document.getElementById('error-course' + i);
+                const gradeValue = inputField.value.trim().toUpperCase();
+
+                // If the entered grade is not valid, show error message and apply error style
+                if (!allowedGrades.includes(gradeValue)) {
+                    inputField.classList.add('error');
+                    errorMessage.style.display = 'block';
+                    isValid = false;
+                } else {
+                    inputField.classList.remove('error');
+                    errorMessage.style.display = 'none';
+                }
+            }
+
+            // Prevent form submission if any invalid input is found
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

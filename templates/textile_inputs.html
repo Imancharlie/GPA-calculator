@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c2c2c;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            animation: fadeInBody 0.1s ease-in-out;
+        }
+
+        @keyframes fadeInBody {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        h5 {
+            color: #ADD8E6;
+        }
+
+        h1 {
+            color: #228B22;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em; /* Adjusted size for larger screens */
+            animation: zoomIn 1s ease-out;
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        form {
+            background-color: #3a3a3a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeInForm 1.2s ease-in forwards;
+        }
+
+        @keyframes fadeInForm {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #fff;
+            animation: fadeInLabel 1.3s ease forwards;
+        }
+
+        @keyframes fadeInLabel {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        select,
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #555;
+            color: #fff;
+            animation: slideInInput 1.2s ease forwards;
+        }
+
+        @keyframes slideInInput {
+            0% {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #228B22;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: slideInSubmit 1.5s ease forwards;
+        }
+
+        @keyframes slideInSubmit {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0000FF;
+            transform: scale(1.05);
+        }
+
+        .form-section {
+            display: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .form-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #333;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            animation: fadeInContainer 1.2s ease-in-out;
+        }
+
+        @keyframes fadeInContainer {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .header {
+            text-align: center;
+            background-color: #00cc99;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 20px;
+            color: #ccc;
+            animation: fadeInFooter 2s ease;
+        }
+
+        @keyframes fadeInFooter {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem; /* 32px */
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            label {
+                font-size: 1em;
+            }
+
+            select,
+            input[type="text"] {
+                padding: 8px;
+                font-size: 1em;
+            }
+
+            input[type="submit"] {
+                font-size: 1em;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2s ease; /* 24px */
+            }
+
+            form {
+                padding: 10px;
+            }
+
+            label {
+                font-size: 0.9em;
+            }
+
+            select,
+            input[type="text"] {
+                padding: 6px;
+                font-size: 0.9em;
+            }
+
+            input[type="submit"] {
+                font-size: 0.9em;
+                padding: 6px;
+                placeholder:'a,b,c,d;;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>GPA Calculator</h1>
+
+        <form id="year" action="{% url 'textile_sem' %}" method="POST">  <!-- Update 'your_view_name' with the actual view name -->
+            {% csrf_token %}
+            
+            {% for coz in coase %}
+            <label for="course{{ forloop.counter }}">
+                {{ coz }}
+            </label>
+            <input type="text" id="course{{ forloop.counter }}" name="course{{ forloop.counter }}" required>
+            {% endfor %}
+            
+            <input type="hidden" id="selected-degree" name="selected_degree" value="{{ selected_degree }}">
+            <input type="hidden" id="course-count" name="course_count" value="{{ coase|length }}">
+            <br>
+        
+            <input type="submit" value="Calculate GPA">
+            <div class="footer">
+                Iman's system &copy; 2024 <a href="{%url 'textile'%}">Back</a>
+            </div>
+        </form> 
+       
+    </div>
+   
+</body>
+
+</html>

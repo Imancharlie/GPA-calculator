@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Classification Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #2c2c2c; /* Changed to black */
+            color: #228B22; /* Set the text color to white for better readability */
+        }
+        table {
+            width: 100%;
+            max-width: 800px; /* Limit max-width for large screens */
+            margin: 20px auto;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 1.2em;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #34495e;
+            color: #fff;
+        }
+        /* Colorful alternating rows */
+        tr:nth-child(even) {
+            background-color: #ffeb99; /* Light yellow */
+        }
+        tr:nth-child(odd) {
+            background-color: #d0f0c0; /* Light green */
+        }
+        tr:hover {
+            background-color: #f7cac9; /* Light pink hover effect */
+        }      
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 20px;
+            color: #ccc;
+            animation: fadeInFooter 2s ease;
+        }
+        caption {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                font-size: 1em; /* Reduce font size */
+            }
+            th, td {
+                padding: 8px; /* Reduce padding */
+            }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2em; /* Reduce header font size */
+            }
+            table {
+                font-size: 0.9em; /* Further reduce font size */
+            }
+            th, td {
+                padding: 6px; /* Further reduce padding */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align: center;">GPA Classifications</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>GPA Range</th>
+                <th>Classification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>4.4 - 5.0</td>
+                <td>First Class</td>
+            </tr>
+            <tr>
+                <td>3.5 - 4.3</td>
+                <td>Upper Second Class</td>
+            </tr>
+            <tr>
+                <td>2.7 - 3.4</td>
+                <td>Lower Second Class</td>
+            </tr>
+            <tr>
+                <td>2.0 - 2.6</td>
+                <td>Pass</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{%url 'coarses'%}" style="color: #fff;">EXIT</a> <!-- Set link color to white -->
+    <div class="footer">
+        Iman's system &copy; 2024 <a href="{%url 'home'%}">home</a>
+     </div>
+</body>
+</html>
